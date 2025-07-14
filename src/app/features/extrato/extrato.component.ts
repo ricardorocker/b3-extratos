@@ -1,7 +1,9 @@
 import { CommonModule, formatDate } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FiltroModalComponent } from '../../components/filtro-modal/filtro-modal.component';
+import { ExtratoService } from '../../core/services/extrato.service';
+import { ExtratoResponse } from '../../core/models/extrato-response';
 
 @Component({
   selector: 'app-extrato',
@@ -10,56 +12,28 @@ import { FiltroModalComponent } from '../../components/filtro-modal/filtro-modal
   templateUrl: './extrato.component.html',
   styleUrl: './extrato.component.scss',
 })
-export class ExtratoComponent {
+export class ExtratoComponent implements OnInit {
   mostrarModalFiltro = false;
-  extratoResponseMock = {
-    paginaAtual: 1,
-    totalPaginas: 1,
-    itens: [
-      {
-        data: '2020-11-04T00:00:00',
-        movimentacoes: [
-          {
-            tipoOperacao: 'Debito',
-            tipoMovimentacao: 'Transferência - Liquidação',
-            nomeProduto: 'MGLU3 - MAGAZINE LUIZA S/A',
-            instituicao: 'CLEAR CORRETORA - GRUPO XP',
-            quantidade: 300,
-            valorOperacao: 7323,
-            precoUnitario: 24.41,
-            dataMovimentacao: '2020-11-04T00:00:00',
-          },
-          {
-            tipoOperacao: 'Credito',
-            tipoMovimentacao: 'Transferência - Liquidação',
-            nomeProduto: 'VVAR3 - VIA VAREJO S.A.',
-            instituicao: 'CLEAR CORRETORA - GRUPO XP',
-            quantidade: 400,
-            valorOperacao: 6920,
-            precoUnitario: 17.3,
-            dataMovimentacao: '2020-11-04T00:00:00',
-          },
-        ],
-        totalItemsPagina: 2,
+  extratoResponse?: ExtratoResponse;
+
+  constructor(private extratoService: ExtratoService) {}
+
+  ngOnInit() {
+    this.buscarExtrato('2025-06-14', '2025-07-14');
+  }
+
+  buscarExtrato(dataInicio: string, dataFim: string) {
+    const guid = '27f97fe1-b741-4243-be91-c9ae74249639';
+
+    this.extratoService.buscarExtrato(dataInicio, dataFim, 1, guid).subscribe({
+      next: (res) => {
+        this.extratoResponse = res;
       },
-      {
-        data: '2020-10-30T00:00:00',
-        movimentacoes: [
-          {
-            tipoOperacao: 'Credito',
-            tipoMovimentacao: 'Transferência - Liquidação',
-            nomeProduto: 'MGLU3 - MAGAZINE LUIZA S/A',
-            instituicao: 'CLEAR CORRETORA - GRUPO XP',
-            quantidade: 100,
-            valorOperacao: 2488,
-            precoUnitario: 24.88,
-            dataMovimentacao: '2020-10-30T00:00:00',
-          },
-        ],
-        totalItemsPagina: 1,
+      error: (err) => {
+        console.error('Erro ao buscar extrato:', err);
       },
-    ],
-  };
+    });
+  }
 
   formatarData(data: string): string {
     return formatDate(data, "dd 'de' MMMM 'de' yyyy", 'pt-BR');
@@ -80,6 +54,7 @@ export class ExtratoComponent {
   aplicarFiltros(filtros: any) {
     this.fecharModalFiltro();
     console.log('Filtros aplicados:', filtros);
+    this.buscarExtrato(filtros.dataInicial, filtros.dataFinal);
   }
 
   limparFiltros() {

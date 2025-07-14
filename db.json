@@ -1,0 +1,52 @@
+{
+  "extrato-movimentacao": {
+    "paginaAtual": 1,
+    "totalPaginas": 1,
+    "itens": [
+      {
+        "data": "2020-11-04T00:00:00",
+        "movimentacoes": [
+          {
+            "tipoOperacao": "Debito",
+            "tipoMovimentacao": "Transferência - Liquidação",
+            "nomeProduto": "MGLU3 - MAGAZINE LUIZA S/A",
+            "instituicao": "CLEAR CORRETORA - GRUPO XP",
+            "quantidade": 300,
+            "valorOperacao": 7323,
+            "precoUnitario": 24.41,
+            "dataMovimentacao": "2020-11-04T00:00:00"
+          },
+          {
+            "tipoOperacao": "Credito",
+            "tipoMovimentacao": "Transferência - Liquidação",
+            "nomeProduto": "VVAR3 - VIA VAREJO S.A.",
+            "instituicao": "CLEAR CORRETORA - GRUPO XP",
+            "quantidade": 400,
+            "valorOperacao": 6920,
+            "precoUnitario": 17.3,
+            "dataMovimentacao": "2020-11-04T00:00:00"
+          }
+        ],
+        "totalItemsPagina": 2
+      },
+      {
+        "data": "2020-10-30T00:00:00",
+        "movimentacoes": [
+          {
+            "tipoOperacao": "Credito",
+            "tipoMovimentacao": "Transferência - Liquidação",
+            "nomeProduto": "MGLU3 - MAGAZINE LUIZA S/A",
+            "instituicao": "CLEAR CORRETORA - GRUPO XP",
+            "quantidade": 100,
+            "valorOperacao": 2488,
+            "precoUnitario": 24.88,
+            "dataMovimentacao": "2020-10-30T00:00:00"
+          }
+        ],
+        "totalItemsPagina": 1
+      }
+    ],
+    "detalheStatusCode": 0,
+    "excecoes": []
+  }
+}
