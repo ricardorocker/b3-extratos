@@ -1,14 +1,16 @@
 import { CommonModule, formatDate } from '@angular/common';
 import { Component } from '@angular/core';
+import { FiltroModalComponent } from '../../components/filtro-modal/filtro-modal.component';
 
 @Component({
   selector: 'app-extrato',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FiltroModalComponent],
   templateUrl: './extrato.component.html',
-  styleUrl: './extrato.component.scss'
+  styleUrl: './extrato.component.scss',
 })
 export class ExtratoComponent {
+  modalAberto = false;
   extratoResponseMock = {
     paginaAtual: 1,
     totalPaginas: 1,
@@ -59,10 +61,28 @@ export class ExtratoComponent {
   };
 
   formatarData(data: string): string {
-    return formatDate(data, 'dd \'de\' MMMM \'de\' yyyy', 'pt-BR');
+    return formatDate(data, "dd 'de' MMMM 'de' yyyy", 'pt-BR');
   }
 
   obterCor(tipoOperacao: string): string {
     return tipoOperacao === 'Credito' ? 'bg-green-600' : 'bg-red-600';
+  }
+
+  onClickModal() {
+    this.modalAberto ? (this.modalAberto = true) : (this.modalAberto = true);
+  }
+  
+  abirFiltro() {
+    this.modalAberto = true;
+  }
+
+  fecharFiltro() {
+    this.modalAberto = false;
+  }
+
+  aplicarFiltro(filtrosSelecionados: any) {
+    // Aqui você trataria os filtros aplicados e recarregaria a lista de extratos
+    console.log('Filtros aplicados:', filtrosSelecionados);
+    this.fecharFiltro();
   }
 }

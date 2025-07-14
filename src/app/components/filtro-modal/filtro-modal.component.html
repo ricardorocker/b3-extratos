@@ -1,0 +1,125 @@
+<div
+  class="fixed top-0 right-0 p-4 w-full sm:w-[480px] h-full bg-white z-50 shadow-lg flex flex-col"
+  *ngIf="aberto"
+>
+  <div class="flex justify-between items-center p-4 border-b">
+    <button (click)="fecharModal()" class="text-blue-600 font-semibold">
+      &larr; Voltar
+    </button>
+  </div>
+
+  <div class="flex-1 overflow-y-auto p-4 text-sm">
+    <div>
+      <p class="text-xs text-gray-600">Movimentação</p>
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Filtros</h2>
+      <p class="text-[11px] text-gray-500">
+        SELECIONE A DATA E OS ITENS QUE DESEJA VISUALIZAR.
+      </p>
+      <p class="text-[10px] mb-1">Selecione os últimos</p>
+      <div class="flex flex-wrap gap-2 mb-4">
+        <button
+          *ngFor="let dias of periodosDisponiveis"
+          (click)="selecionarDias(dias)"
+          [class.bg-blue-600]="filtrosSelecionados.diasSelecionados === dias"
+          [class.text-white]="filtrosSelecionados.diasSelecionados === dias"
+          class="border px-3 py-1 rounded-full text-blue-600"
+        >
+          {{
+            dias === 30
+              ? "30 dias"
+              : dias === 90
+              ? "3 meses"
+              : dias === 180
+              ? "6 meses"
+              : "12 meses"
+          }}
+        </button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 mb-4">
+      <div>
+        <label class="block text-xs">Data inicial</label>
+        <input
+          type="date"
+          [(ngModel)]="filtrosSelecionados.dataInicial"
+          class="w-full border rounded px-2 py-1"
+        />
+      </div>
+      <div>
+        <label class="block text-xs">Data final</label>
+        <input
+          type="date"
+          [(ngModel)]="filtrosSelecionados.dataFinal"
+          class="w-full border rounded px-2 py-1"
+        />
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <p class="uppercase mb-1">Tipo de movimentação</p>
+      <div class="grid grid-cols-2 gap-2">
+        <label
+          *ngFor="let tipo of tiposMovimentacao"
+          class="flex items-center gap-2"
+        >
+          <input
+            type="checkbox"
+            [checked]="filtrosSelecionados.tiposMovimentacao.includes(tipo)"
+            (change)="toggleOpcao(filtrosSelecionados.tiposMovimentacao, tipo)"
+          />
+          {{ tipo }}
+        </label>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <p class="uppercase mb-1">Tipo de investimento</p>
+      <div class="grid grid-cols-2 gap-2">
+        <label
+          *ngFor="let tipo of tiposInvestimento"
+          class="flex items-center gap-2"
+        >
+          <input
+            type="checkbox"
+            [checked]="filtrosSelecionados.tiposInvestimento.includes(tipo)"
+            (change)="toggleOpcao(filtrosSelecionados.tiposInvestimento, tipo)"
+          />
+          {{ tipo }}
+        </label>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <p class="uppercase mb-1">Instituição</p>
+      <div class="grid grid-cols-2 gap-2">
+        <label
+          *ngFor="let inst of instituicoes"
+          class="flex items-center gap-2"
+        >
+          <input
+            type="checkbox"
+            [checked]="filtrosSelecionados.instituicoes.includes(inst)"
+            (change)="toggleOpcao(filtrosSelecionados.instituicoes, inst)"
+          />
+          {{ inst }}
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="border-t p-4 flex justify-between items-center">
+    <button
+      (click)="limparFiltro()"
+      class="text-sm text-blue-600 font-semibold"
+    >
+      Limpar filtro
+    </button>
+    <button
+      (click)="aplicarFiltro()"
+      class="bg-blue-600 text-white px-4 py-2 rounded-full text-sm"
+    >
+      Filtrar
+    </button>
+  </div>
+</div>

@@ -33,6 +33,7 @@
   <div class="flex gap-3">
     <button
       class="bg-yellow-300 text-[#1d1d1b] px-4 py-1 rounded-full flex items-center gap-1"
+      (click)="abirFiltro()"
     >
       <svg class="w-3 h-3" fill="none" stroke="currentColor">
         <path d="M3 4h18M3 10h12M3 16h6" />
@@ -126,3 +127,7 @@
   quantidades negociadas, além de seus valores serem arredondados na segunda
   casa decimal.
 </p>
+
+<app-filtro-modal
+  (click)="fecharFiltro()"
+></app-filtro-modal>
