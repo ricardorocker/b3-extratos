@@ -12,14 +12,14 @@ Este projeto simula fielmente a interface da tela de **Extratos de Movimentaçõ
 
 ##  Funcionalidades Implementadas
 
-- ✔️ Simulação fiel da interface da tela de extratos B3 (desktop e mobile)
-- ✔️ Layout responsivo com **TailwindCSS**
-- ✔️ Modal de filtros com animação responsiva (abre pela lateral no desktop e tela cheia no mobile)
-- ✔️ Uso de **RxJS Avançado** com `BehaviorSubject`, `switchMap`, `tap`, entre outros
-- ✔️ Suporte completo ao filtro por **período de datas**
-- ✔️ Exibição da lista agrupada por dia e movimentações
-- ✔️ Estados de carregamento e ausência de dados com mensagens amigáveis
-- ✔️ Mock de dados via `json-server` simulando o endpoint real da B3
+-  Simulação fiel da interface da tela de extratos B3 (desktop e mobile)
+-  Layout responsivo com **TailwindCSS**
+-  Modal de filtros com animação responsiva (abre pela lateral no desktop e tela cheia no mobile)
+-  Uso de **RxJS Avançado** com `BehaviorSubject`, `switchMap`, `tap`, entre outros
+-  Suporte completo ao filtro por **período de datas**
+-  Exibição da lista agrupada por dia e movimentações
+-  Estados de carregamento e ausência de dados com mensagens amigáveis
+-  Mock de dados via `json-server` simulando o endpoint real da B3
 
 ---
 
@@ -59,9 +59,12 @@ src/
 
 ##  Prints do Projeto
 
-| 💻 Desktop | 📱 Mobile |
-|-----------|-----------|
-| ![Desktop](./docs/desktop-preview.png) | ![Mobile](./docs/mobile-preview.png) |
+ 💻 Desktop 
+<img width="1534" height="937" alt="image" src="https://github.com/user-attachments/assets/26a5353f-f803-49f4-8407-e88f9bd62d40" />
+
+📱 Mobile 
+ <img width="378" height="663" alt="image" src="https://github.com/user-attachments/assets/a14b2f11-6581-49ab-9e18-a5c440044387" />
+ 
 
 ---
 
