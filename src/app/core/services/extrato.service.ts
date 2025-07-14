@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { ExtratoResponse } from '../models/extrato-response';
 
 @Injectable({
@@ -23,6 +23,21 @@ export class ExtratoService {
       .set('pagina', pagina.toString())
       .set('cache-guid', cacheGuid);
 
-    return this.http.get<ExtratoResponse>(this.baseUrl, { params });
+    return this.http.get<ExtratoResponse>(this.baseUrl, { params }).pipe(
+      map((res) => {
+        const dataIni = new Date(dataInicio);
+        const dataFimDate = new Date(dataFim);
+
+        const itensFiltrados = res.itens.filter((item) => {
+          const dataItem = new Date(item.data);
+          return dataItem >= dataIni && dataItem <= dataFimDate;
+        });
+
+        return {
+          ...res,
+          itens: itensFiltrados,
+        };
+      })
+    );
   }
 }

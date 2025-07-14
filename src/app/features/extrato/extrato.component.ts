@@ -15,14 +15,29 @@ import { ExtratoResponse } from '../../core/models/extrato-response';
 export class ExtratoComponent implements OnInit {
   mostrarModalFiltro = false;
   extratoResponse?: ExtratoResponse;
+  dataInicio!: string;
+  dataFim!: string;
 
   constructor(private extratoService: ExtratoService) {}
 
   ngOnInit() {
-    this.buscarExtrato('2025-06-14', '2025-07-14');
+    this.atualData();
+    this.buscarExtrato(this.dataInicio, this.dataFim);
+  }
+
+  atualData(): void {
+    const hoje = new Date();
+    const trintaDiasAtras = new Date();
+    trintaDiasAtras.setDate(hoje.getDate() - 30);
+
+    this.dataInicio = this.formatarDataISO(trintaDiasAtras);
+    this.dataFim = this.formatarDataISO(hoje);
   }
 
   buscarExtrato(dataInicio: string, dataFim: string) {
+    this.dataInicio = dataInicio;
+    this.dataFim = dataFim;
+
     const guid = '27f97fe1-b741-4243-be91-c9ae74249639';
 
     this.extratoService.buscarExtrato(dataInicio, dataFim, 1, guid).subscribe({
@@ -37,6 +52,14 @@ export class ExtratoComponent implements OnInit {
 
   formatarData(data: string): string {
     return formatDate(data, "dd 'de' MMMM 'de' yyyy", 'pt-BR');
+  }
+
+  formatarDataExibicao(data: string): string {
+    return formatDate(data, 'dd/MM/yyyy', 'pt-BR');
+  }
+
+  formatarDataISO(data: Date): string {
+    return data.toISOString().split('T')[0];
   }
 
   obterCor(tipoOperacao: string): string {
@@ -58,7 +81,8 @@ export class ExtratoComponent implements OnInit {
   }
 
   limparFiltros() {
-    console.log('Filtros foram limpos');
+    this.atualData();
+    this.buscarExtrato(this.dataInicio, this.dataFim);
     this.fecharModalFiltro();
   }
 }
