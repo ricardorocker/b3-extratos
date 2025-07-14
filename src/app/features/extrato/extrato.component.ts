@@ -1,16 +1,17 @@
 import { CommonModule, formatDate } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { FiltroModalComponent } from '../../components/filtro-modal/filtro-modal.component';
 
 @Component({
   selector: 'app-extrato',
   standalone: true,
-  imports: [CommonModule, FiltroModalComponent],
+  imports: [CommonModule, FormsModule, FiltroModalComponent],
   templateUrl: './extrato.component.html',
   styleUrl: './extrato.component.scss',
 })
 export class ExtratoComponent {
-  modalAberto = false;
+  mostrarModalFiltro = false;
   extratoResponseMock = {
     paginaAtual: 1,
     totalPaginas: 1,
@@ -68,21 +69,21 @@ export class ExtratoComponent {
     return tipoOperacao === 'Credito' ? 'bg-green-600' : 'bg-red-600';
   }
 
-  onClickModal() {
-    this.modalAberto ? (this.modalAberto = true) : (this.modalAberto = true);
-  }
-  
-  abirFiltro() {
-    this.modalAberto = true;
+  abrirModalFiltro() {
+    this.mostrarModalFiltro = true;
   }
 
-  fecharFiltro() {
-    this.modalAberto = false;
+  fecharModalFiltro() {
+    this.mostrarModalFiltro = false;
   }
 
-  aplicarFiltro(filtrosSelecionados: any) {
-    // Aqui você trataria os filtros aplicados e recarregaria a lista de extratos
-    console.log('Filtros aplicados:', filtrosSelecionados);
-    this.fecharFiltro();
+  aplicarFiltros(filtros: any) {
+    this.fecharModalFiltro();
+    console.log('Filtros aplicados:', filtros);
+  }
+
+  limparFiltros() {
+    console.log('Filtros foram limpos');
+    this.fecharModalFiltro();
   }
 }

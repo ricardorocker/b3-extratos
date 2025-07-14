@@ -10,17 +10,25 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrl: './filtro-modal.component.scss',
 })
 export class FiltroModalComponent {
-  @Input() aberto = true;
+  @Input() aberto = false;
   @Output() fechar = new EventEmitter<void>();
   @Output() filtroAplicado = new EventEmitter<any>();
+  @Output() limpar = new EventEmitter<void>();
 
-  filtrosSelecionados = {
+  filtrosSelecionados: {
+    dataInicial: string;
+    dataFinal: string;
+    diasSelecionados: number;
+    tiposMovimentacao: string[];
+    tiposInvestimento: string[];
+    instituicoes: string[];
+  } = {
     dataInicial: '',
     dataFinal: '',
     diasSelecionados: 30,
-    tiposMovimentacao: [''],
-    tiposInvestimento: [''],
-    instituicoes: [''],
+    tiposMovimentacao: [],
+    tiposInvestimento: [],
+    instituicoes: [],
   };
 
   periodosDisponiveis = [30, 90, 180, 365];
@@ -75,6 +83,8 @@ export class FiltroModalComponent {
       tiposInvestimento: [],
       instituicoes: [],
     };
+
+    this.limpar.emit();
   }
 
   aplicarFiltro() {
